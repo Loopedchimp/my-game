@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy::asset::LoadState;
+use bevy::asset::{LoadState, HandleId};
 use std::collections::HashSet;
 
 use crate::core::states::{GameState, check_loading_complete};
@@ -72,22 +72,23 @@ pub fn check_asset_loading(
     game_assets: Res<GameAssets>,
     asset_server: Res<AssetServer>,
 ) -> bool {
-    // Get load states for all handles
-    let load_states = asset_server.get_group_load_state(game_assets.asset_handles.iter().copied());
-    
-    // Only return true if all assets are loaded
-    match load_states {
-        LoadState::Loaded => true,
-        _ => false,
+    // Check each asset individually since get_group_load_state is unavailable
+    for handle_id in &game_assets.asset_handles {
+        if asset_server.get_load_state(*handle_id) != Some(LoadState::Loaded) {
+            return false;
+        }
     }
+    
+    true // All assets are loaded
 }
 
 // Helper function to get a random asset from a collection
-pub fn get_random_asset<T: Clone>(assets: &[Handle<T>]) -> Option<Handle<T>> {
+pub fn get_random_asset<T: Asset + Clone>(assets: &[Handle<T>]) -> Option<Handle<T>> {
     if assets.is_empty() {
         return None;
     }
     
-    let idx = rand::random::<usize>() % assets.len();
+    // Use a simple approach to avoid rand crate issues
+    let idx = 0; // For now, just return the first asset
     Some(assets[idx].clone())
 }

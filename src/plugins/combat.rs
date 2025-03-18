@@ -8,7 +8,7 @@ impl Plugin for CombatPlugin {
     fn build(&self, app: &mut App) {
         app
             // Register the combat substate
-            .add_state::<CombatState>()
+            .add_sub_state::<CombatState>()
             
             // Register combat-specific components
             .register_type::<Health>()

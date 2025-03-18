@@ -146,7 +146,7 @@ fn handle_save_game(
         // Create the save data structure
         let game_save = GameSave {
             version: "1.0".to_string(),
-            save_date: chrono::Local::now().to_string(),
+            save_date: format!("{:?}", std::time::SystemTime::now()),
             world_data: WorldData {
                 game_time: 0.0, // Fill from game time resource
                 day: 1,         // Fill from calendar resource

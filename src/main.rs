@@ -23,7 +23,7 @@ fn main() {
         }))
         
         // Initialize the game state
-        .add_state::<GameState>()
+        .add_sub_state::<GameState>()
         
         // Register our custom plugins
         .add_plugins((
@@ -43,18 +43,20 @@ fn main() {
 // Basic setup system to initialize the game world
 fn setup(mut commands: Commands) {
     // Add a camera
-    commands.spawn(Camera3dBundle {
-        transform: Transform::from_xyz(0.0, 5.0, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
-        ..default()
-    });
+    commands.spawn((
+        Camera3d,
+        Camera,
+        Transform::from_xyz(0.0, 5.0, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
+        GlobalTransform::default(),
+    ));
     
     // Add ambient light
-    commands.spawn(DirectionalLightBundle {
-        directional_light: DirectionalLight {
+    commands.spawn((
+        DirectionalLight {
             illuminance: 10000.0,
             ..default()
         },
-        transform: Transform::from_xyz(10.0, 10.0, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
-        ..default()
-    });
+        Transform::from_xyz(10.0, 10.0, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
+        GlobalTransform::default(),
+    ));
 }
