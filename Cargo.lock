@@ -375,20 +375,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bannerlord_character_system"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_asset_loader",
- "bevy_egui",
- "bevy_rapier3d",
- "leafwing-input-manager",
- "rand 0.9.0",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "base64"
 version = "0.21.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3341,6 +3327,20 @@ checksum = "8e3e04debbb59698c15bacbb6d93584a8c0ca9cc3213cb423d31f760d8843ce5"
 dependencies = [
  "adler2",
  "simd-adler32",
+]
+
+[[package]]
+name = "my-game"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_asset_loader",
+ "bevy_egui",
+ "bevy_rapier3d",
+ "leafwing-input-manager",
+ "rand 0.9.0",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
